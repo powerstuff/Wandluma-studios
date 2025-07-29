@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Music</title>
+</head>
+<body>
+    <!--navigation section-->
+    <section class="nav">
+        <article class="logo">WANDHUNA. <span style="font-size: 10px;font-weight: 200;text-decoration: none;">Records</span></article>
+        <article class="container">
+            <ul>
+                <li><a href="/index.html">Home</a></li>
+                <li><a href="/allmusic.html">All Music</a></li>
+                <li><a href="/dashboard.html">Dashboard</a></li>
+            </ul>
+        </article>
+        <article class="toggle-btn">Menu</article>
+
+    </section>
+
+    <!--content header-->
+    <section class="content-header">
+        <article class="title"><p class="sub title">BALOYI</p>Music Records </article>
+        <div class="container">
+        <article class="search-container">
+            
+            <input type="text" id="search-input" placeholder="Search for songs,artist, or albums" onclick="search()" class="search-input" >
+            <button id="search-button" class="button-search"> <a href="allmusic.html"> click Me</a></button>
+            <div id="results"></div>
+        </article>
+      </div>
+      
+    </section>
+    
+    <!--recommandation section-->
+    <section class="recommanded">
+        <article class="recommanded-title">Recommanded for you</article>
+        <article class="recommands">
+            <article class="recommand"> 
+                    <img src="/image/images (1).jpeg" alt="images" onclick="playAudio()" class="img-recommand">
+                        <audio id="myAudio">
+                            <source src="/audio/ndi a mudivha.mp3" type="audio/mp3">
+                            <article class="logo-small">Music.</article>
+                        </audio>
+                            <button id="share-button"> <a href="allmusic.html">share</a> </button>
+                            <audio id="audio" src="/audio/ndi a mudivha.mp3"></audio>
+                        
+                        <article class="logo-small"> ndi a mudivha.mp3</article>
+            </article>
+            
+            <article class="recommand"> 
+                <img src="/image/images (1).jpeg" alt="images" class="img-recommand">
+                <article class="logo-small">Music</article>
+            </article>
+            <article class="recommand"> 
+                <img src="/image/images (1).jpeg" alt="images" class="img-recommand">
+                <article class="logo-small">Music</article>
+            </article>  
+        </article>
+    </section>
+
+<!--spotify brand-->
+    <section class="brand">
+        <article class="brand-left-side">
+            <img src="/image/images.jpeg" alt="">
+        </article>
+        <article class="brand-right-side">
+            <article class="title-spotify">Get Spotify Music</article>
+            <article>Stream Music from Spotify only for WANDHUNA RSA popular artist ENJOY</article>
+            <a href="https://open.spotity.com/artist/49aAN3MBEWI6VmyspmRjmP?si=rBuUPMBxSH-CgRGrppdM8A" target="_blank" class="spotify-btn">Stream Now</a>
+        </article>
+    </section>
+
+<!--tranding section-->
+    <section class="recommanded">
+        <article class="recommanded-title">Trending Music</article>
+        <article class="recommands">
+            <article class="recommand"> 
+                <img src="/image/images (1).jpeg" alt="images" class="img-recommand">
+                <article class="logo-small">Music</article>
+            </article>
+            <article class="recommand"> 
+                <img src="/image/images (1).jpeg" alt="images" class="img-recommand">
+                <article class="logo-small">Music</article>
+            </article>
+            <article class="recommand"> 
+                <img src="/image/images (1).jpeg" alt="images" class="img-recommand">
+                <article class="logo-small">Music</article>
+            </article>  
+        </article>
+    </section>
+    
+<!--footer section-->
+
+    <section class="footer">
+        <article class="left-side">
+            <article class="logo-footer" style="color:rgb( 202,203,204);">MUSIC. <span style="font-size: 10px;font-weight: 200;text-decoration: none;">DITRIBUTION</span></article>
+            <article style="color:rgb( 211,215,219);">Music distribution is a south african music streaming site </article>
+        </article>
+        <article class="center-side">
+            <h2 class="footer-heading">Quick Links</h2>
+            <ul>
+                <li> <a href="">Most followed Artist</a></li>
+                <li> <a href="">Latest Music</a></li>
+                <li> <a href="">Hip pop</a></li>
+                <li> <a href="">Dancehall</a></li>
+            </ul>
+        </article>
+        <article class="right-side">
+            <h2 class="footer-heading">Support</h2>
+            <ul>
+                <li><a href="">Pelp</a></li>
+                <li><a href="">FQA</a></li>
+                <li><a href="">Privacy and Policy</a></li>
+                <li><a href="">Terms and Condition</a></li>
+            </ul>
+        </article>
+    </section>
+<script src="music.js"></script>
+<script>
+    function playAudio(){
+        document.getElementById("myAudio").play();
+    }
+
+    
+
+searchButton.addEventListener('click',()=>{
+  const query = searchInput.nodeValue.trim();
+  if (query){
+    fetchMusic(query);
+  }
+  else{
+    resultsDiv.innerHTML= '<p>please enter a search term.</p>';
+  }
+});
+
+async function fetchMusic(query){
+  const API_URL=`https:
+  try{
+    const response=await fetch(API_URL);
+    const data=await response.json();
+    displayResults(data.results);
+
+  } catch(error){
+    console.error('Error fetching music:',error);
+    resultDiv.innerHTML=`//itunes.apple.com/search?term=${encodeURIComponent(query)}&entity=song&limit=20`;
+    try{
+      const response=await fetch(API_URL);
+      const data =await response.json();
+      displayResults(data.results);
+  
+    } catch(error){
+      console.error('Error fetching music:',error);
+      resultsDiv.innerHTML= '<p>please enter a search term.</p>';
+    }
+  }
+  function displayResults(songs){
+    resultsDiv.innerHTML='';
+    if (songs.length===0){
+      resultsDiv.innerHTML='<p>No results found.</p>';
+      return;
+    }
+    songs.forEach(song=>{
+      const songDiv=document.createElement('div');
+      songDiv.classList.add('song');
+      songDiv.innerHTML=`
+      <img src="${song.artworkUrl100}" alt=${song.trackName}">
+      <h3>${song.trackName}</h3>
+      <p>${song.artistName}</p>
+      <p><strong>Price:</strong> $${song.trackPrice.toFixed(2)}</p>
+      <audio class="audio-preview" controls>
+      <source src="${song.previewUrl}" type=audio/mpeg">
+      your browser does not support the audio element.
+      </audio>
+      `;
+      resultsDiv.appendChild(songDiv);
+    });
+  }
+  document.getElementById("share-button").addEventListener("click",function(){
+      const audio = document.getElementById("audio");
+      const audioSrc = audio.src;
+      const musicPageUrl =`music.html?audio=${encodeURIComponent(audioSrc)}`;
+      window.location.href = musicPageUrl;
+  });
+  
+</script> 
+<script>
+    (function(){
+        var cx ='YOUR_CSE_ID';
+        var gcse =document.createElement('script');
+        gcse.type='text/javascript';
+        gcse.async=true;
+        gcse.src = 'https :
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(gcse, s);
+    })();
+</script>
+<gcse:search></gcse:search>
+</body>
+</html>
